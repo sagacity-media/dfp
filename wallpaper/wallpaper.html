@@ -1,0 +1,50 @@
+<script type="text/javascript">
+
+  /**
+   *  Initialize options from DFP macros
+  **/
+  var options = {
+
+    // The wallpaper image
+    image: "[%BackgroundImage%]",
+
+    // Background color for the wallpaper
+    color: "[%BackgroundColor%]",
+
+    // Destination when clicked
+    // Appends tracking code (CLICK_URL_UNESC) to destination (DEST_URL)
+    target: "%%CLICK_URL_UNESC%%%%DEST_URL%%",
+
+    // Optional third party tracking pixel
+    tracking_pixel: '[%ThirdPartyTrackingPixel%]'
+  }
+
+
+  /**
+   *  This script runs inside the ad <iframe>, so in order to
+   *  manipulate the parent frame, we need to grab a reference
+   *  to the parent's jQuery instance.
+  **/
+  var $ = parent.jQuery;
+
+
+  /**
+   *  Add .has-wallpaper to <body> and append generated wallpaper elements,
+   *  including a third party tracking pixel, if defined.
+  **/
+  $('body').addClass('has-wallpaper').append(
+    $('<a>', { class: 'ad--wallpaper', href: options.target, target: '_blank' })
+      .css('background-color', options.color).append(
+        $('<div>', { class: 'ad--wallpaper__left' })
+          .css('background-image', 'url("' + options.image + '")'),
+        $('<div>', { class: 'ad--wallpaper__right' })
+          .css('background-image', 'url("' + options.image + '")'),
+        $('<img>', function() {
+          if( !options.tracking_pixel ) return;
+          return { src: options.tracking_pixel }
+        }
+      )
+    )
+  );
+
+</script>
