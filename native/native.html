@@ -1,0 +1,44 @@
+<script type="text/javascript">
+
+  /**
+   *  Initialize options from DFP macros
+  **/
+  var options = {
+
+    // The wallpaper image
+    // content_url: "[%SponsoredContentURL%]"
+    content_url: 'http://www.ink.dev/articles/2015/04/2011/ass-meister-does-it-again',
+
+    tracking_code: '%%CLICK_URL_UNESC%%'
+  }
+
+
+  /**
+   *  This script runs inside the ad <iframe>, so in order to
+   *  manipulate the parent frame, we need to grab a reference
+   *  to the parent's jQuery instance.
+  **/
+  var $ = parent.jQuery;
+  var angular = parent.angular;
+
+
+  /**
+   *  Pull content attributes out of URL
+  **/
+  var parts = options.content_url.split('/');
+  var type = parts[3];
+  var slug = parts[parts.length - 1]
+
+
+  /**
+   *  Insert ad code after iframe
+  **/
+  $(function() {
+    var $injector = angular.injector(['ng', 'ink.ads']);
+    $injector.invoke(['$rootScope', '$compile', function($rootScope, $compile) {
+      var template = '<div class="native-ad" type="' + type + '" slug="' + slug + '"></div>';
+      angular.element(window.frameElement).after($compile(template)($rootScope));
+    }]);
+  });
+
+</script>
