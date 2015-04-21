@@ -6,7 +6,7 @@
   var options = {
 
     // The wallpaper image
-    content_url: "[%SponsoredContentURL%]"
+    content_url: "[%SponsoredContentURL%]",
 
     tracking_code: '%%CLICK_URL_UNESC%%'
   }
@@ -33,9 +33,9 @@
    *  Insert ad code after iframe
   **/
   $(function() {
-    var $injector = angular.injector(['ng', 'ink.ads']);
+    var $injector = angular.injector(['ng', 'ink.ads', 'ink.templates']);
     $injector.invoke(['$rootScope', '$compile', function($rootScope, $compile) {
-      var template = '<div class="native-ad" type="' + type + '" slug="' + slug + '"></div>';
+      var template = '<div class="native-ad" type="' + type + '" slug="' + slug + '" tracking-code="' + options.tracking_code + '"></div>';
       angular.element(window.frameElement).after($compile(template)($rootScope));
     }]);
   });
