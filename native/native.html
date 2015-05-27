@@ -18,7 +18,6 @@
    *  to the parent's jQuery instance.
   **/
   var $ = parent.jQuery;
-  var angular = parent.angular;
 
 
   /**
@@ -33,11 +32,7 @@
    *  Insert ad code after iframe
   **/
   $(function() {
-    var $injector = angular.injector(['ng', 'ink.ads', 'ink.templates']);
-    $injector.invoke(['$rootScope', '$compile', function($rootScope, $compile) {
-      var template = '<div class="native-ad" type="' + type + '" slug="' + slug + '" tracking-code="' + options.tracking_code + '"></div>';
-      angular.element(window.frameElement).after($compile(template)($rootScope));
-    }]);
+    $(window.frameElement).next('.native-ad').scope().initialize(type,slug,options.tracking_code);
   });
 
 </script>
