@@ -32,7 +32,7 @@
    *  Insert ad code after iframe
   **/
   $(function() {
-    $(window.frameElement).next('.native-ad').scope().initialize(type,slug,options.tracking_code);
+    $(window.frameElement).parent().parent().next('.native-ad').scope().initialize(type,slug,options.tracking_code);
   });
 
 </script>
