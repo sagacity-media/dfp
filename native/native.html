@@ -23,6 +23,7 @@
   /**
    *  Pull content attributes out of URL
   **/
+  options.content_url = options.content_url.replace(/\/+$/, "");
   var parts = options.content_url.split('/');
   var type = parts[3];
   var slug = parts[parts.length - 1]
